@@ -1,24 +1,10 @@
 from typing import Optional
 
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import FileResponse 
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
-
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-    "http://127.0.0.1:8080",
-]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 def calc_heartbeat_tanaka(age):
     maxhr = 208 - 0.7 * age
@@ -36,8 +22,6 @@ def calc_bmr(sex: str, age: int, weight: int):
         elif age>=30 and age<=59:
             return (11.5 * weight + 873)
     
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
 
 @app.get("/heartbeat/{sex}")
 def read_heartbeat(sex: str, age: int):
