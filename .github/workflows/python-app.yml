@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install nose2
+        pip install nose2 ddt
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Unit-Test with nose2
       run: nose2 -v --pretty-assert test
